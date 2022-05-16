@@ -17,9 +17,10 @@
 # PERFORMANCE OF THIS SOFTWARE.
 
 PRGNAM=abcl
-VERSION=${VERSION:-1.8.0}
+VERSION=${VERSION:-1.9.0}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
+PKGTYPE=${PKGTYPE:-tgz}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -62,6 +63,7 @@ cat > $PKG$PREFIX/bin/$PRGNAM << EOF
 
 java -jar $PREFIX/lib$LIBDIRSUFFIX/$PRGNAM-$VERSION/$PRGNAM.jar "\$@"
 EOF
+chmod a+x $PKG$PREFIX/bin/$PRGNAM
 
 mkdir -p $PKG$PREFIX/doc/$PRGNAM-$VERSION
 cp $TMP/$PRGNAM-bin-$VERSION/CHANGES $PKG$PREFIX/doc/$PRGNAM-$VERSION
@@ -75,4 +77,4 @@ mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.tgz
+/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-bin-$VERSION-$ARCH-$BUILD$TAG.$PKGTYPE
